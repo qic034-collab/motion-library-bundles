@@ -14,12 +14,12 @@
     zh: {
       lang: "EN", theme: { light: "浅色", dark: "深色" }, rm: "减弱动效",
       homeH1: "这按钮，有点东西。",
-      homeLead: "120+ 个好玩又好用的动效，喜欢就带走。",
+      homeLead: (n) => `${n} 个网页动效，挑好就能拿到给 AI 的提示词和代码。`,
       notes: ["每个动效都有减弱方案", "中英双语", "免费开源"],
-      libT: "动效库", libD: (n) => `全部 ${n} 个动效，按类型筛选、搜索。`, libBtn: "打开动效库",
-      funcT: "我要设计……", funcD: "选你要设计的东西：一个按钮、一个弹窗、登录页、结账流程……只看它能用的动效。", funcBtn: "选主题",
+      libT: "动效库", libD: (n) => `随便逛逛找灵感：全部 ${n} 个动效，按类型筛选、搜索。`, libBtn: "打开动效库",
+      funcT: "我要设计……", funcD: "已经知道要做什么？选一个按钮、弹窗、登录页或结账流程，只看它能用的动效，最后拿到整套提示词。", funcBtn: "开始设计",
       quick: "直接进入：",
-      fSteps: ["选主题", "挑动效", "拿结果"], fSubs: ["你要设计什么", "同组并排对比", "提示词和代码"],
+      fSteps: ["选元素", "挑动效", "拿结果"], fSubs: ["你要设计什么", "同组并排对比", "提示词和代码"],
       lSteps: ["动效库", "拿结果"], lSubs: ["筛选、预览、复制", "提示词和代码"],
       fH1: ["你要设计什么？", "挑动效", "你的方案"],
       fLead: [
@@ -32,11 +32,11 @@
       siteFilter: "我在做：", allSites: "全部",
       soon: "建设中", seeReq: "看需求", hideReq: "收起", selAll: "全部选上", selNone: "全部取消",
       motionsN: (n) => `${n} 个动效`,
-      home: "回到首页", themeSearch: "搜索主题，比如：弹窗、登录、价格", soonN: (n) => `还有 ${n} 个建设中`, readyN: (n, t) => `${n} / ${t} 个可用`, noTheme: "没有找到这个主题。", all: "全部", allTypes: "全部类型", catLabel: "动效大类", typeLabel: "类型：", copiedShort: "已复制 ✓", search: "搜索动效名称或效果", empty: "没有符合条件的动效。",
-      helpLabel: "这一页是做什么的", tryKw: "试试：", original: "原创", srcPrefix: "参考 ", recOnly: "只看推荐", recWhy: "推荐的标准：几乎所有页面都用得上、减弱动效方案完整、不会抢走内容的注意力。每个类型挑 1–2 个，排在最前面。", pickOne: "选一个", pickMany: "可多选", rec: "推荐", pickRec: "全部选推荐", loop: "自动循环播放", loopWhy: "打开后，屏幕上看得到的动效会一直重复播放，方便并排比较，不用一张张悬停。会一直动，看完记得关掉。", recDone: "已选上推荐的动效",
+      home: "回到首页", themeSearch: "搜索元素，比如：弹窗、登录、价格", soonN: (n) => `还有 ${n} 个建设中`, readyN: (n) => `${n} 个可用`, noTheme: "没有找到这个元素。", all: "全部", allTypes: "全部类型", catLabel: "动效大类", typeLabel: "类型：", copiedShort: "已复制 ✓", search: "搜索动效名称或效果", empty: "没有符合条件的动效。",
+      helpLabel: "这一页是做什么的", tryKw: "试试：", original: "原创", srcPrefix: "参考 ", recOnly: "只看推荐", recWhy: "推荐的标准：几乎所有页面都用得上、减弱动效方案完整、不会抢走内容的注意力。每个类型挑 1–2 个，排在最前面。", pickOne: "选一个", pickMany: "可多选", rec: "推荐", pickRec: "全部选推荐", pickRecHint: "不知道选哪个？", loop: "自动循环播放", loopWhy: "打开后，屏幕上看得到的动效会一直重复播放，方便并排比较，不用一张张悬停。会一直动，看完记得关掉。", recDone: "已选上推荐的动效",
       play: "播放预览", select: "选用", copied: (w) => `已复制${w}`, prompt: "AI 提示词",
       back: "上一步", next: "下一步", toResult: "生成方案", restart: "重新开始", restartConfirm: "再点一次，清空所有选择",
-      sumF: (f, m) => `<b>${f}</b> 个主题 · <b>${m}</b> 个动效`, sumL: (m) => `已选 <b>${m}</b> 个动效`,
+      sumF: (f, m) => `<b>${f}</b> 个元素 · <b>${m}</b> 个动效`, sumL: (m) => `已选 <b>${m}</b> 个动效`,
       duration: "时长", trigger: "触发", whenUse: "什么时候用", reduced: "减弱动效时", tips: "设计要点", code: "代码",
       close: "关闭", copy: "复制", rmCss: "减弱动效 CSS", refBy: "效果参考：", refNote: "用原生 HTML/CSS/JS 独立实现，可直接使用",
       promptTitle: "提示词", promptSubF: "复制给 Claude 或其他 AI，它会按这些功能和动效帮你写页面。", promptSubL: "复制给 AI，让它把这些动效加进你的页面。",
@@ -47,7 +47,7 @@
       checkT: "上线前检查清单", checkD: "给设计和开发逐项核对：功能该有的东西都有了吗？动效在减弱模式下替换对了吗？",
       rmLine: "♿ 减弱时：", sectionNeed: "要有：",
       other: "其他",
-      noFunc: "先在上一步选至少一个主题。",
+      noFunc: "先在上一步选至少一个元素。",
       rules: [
         "每个动效都要写 @media (prefers-reduced-motion: reduce) 的减弱方案，按「减弱动效时」的说明替代，不能只是删掉。",
         "颜色、圆角、间距、动效时长统一用 CSS 变量。",
@@ -60,12 +60,12 @@
     en: {
       lang: "中文", theme: { light: "Light", dark: "Dark" }, rm: "Reduce motion",
       homeH1: "Not Your Average Button.",
-      homeLead: "120+ delightful UI animations. Pick one. Make it yours.",
+      homeLead: (n) => `${n} UI motions. Pick the ones you like and get a ready-to-paste AI prompt and code.`,
       notes: ["Every motion has a reduced-motion version", "Chinese & English", "Free and open source"],
-      libT: "Motion library", libD: (n) => `All ${n} motions, filter by type or search.`, libBtn: "Open the library",
-      funcT: "I'm designing…", funcD: "Pick what you're designing — a button, a modal, a sign-in page, a checkout flow — and see only the motions for it.", funcBtn: "Pick a theme",
+      libT: "Motion library", libD: (n) => `Browse for ideas: all ${n} motions, filter by type or search.`, libBtn: "Open the library",
+      funcT: "I'm designing…", funcD: "Know what you're building? Pick a button, a modal, a sign-in page or a checkout flow, see only the motions for it, and get one prompt for all of them.", funcBtn: "Start designing",
       quick: "Jump in: ",
-      fSteps: ["Theme", "Motions", "Result"], fSubs: ["What you're designing", "Compare side by side", "Prompt and code"],
+      fSteps: ["Elements", "Motions", "Result"], fSubs: ["What you're designing", "Compare side by side", "Prompt and code"],
       lSteps: ["Library", "Result"], lSubs: ["Filter, preview, copy", "Prompt and code"],
       fH1: ["What are you designing?", "Pick motions", "Your plan"],
       fLead: [
@@ -78,11 +78,11 @@
       siteFilter: "I'm building: ", allSites: "All",
       soon: "Coming soon", seeReq: "See spec", hideReq: "Hide", selAll: "Select all", selNone: "Clear all",
       motionsN: (n) => `${n} motions`,
-      home: "Home", themeSearch: "Search themes, e.g. modal, sign-in, pricing", soonN: (n) => `${n} more coming soon`, readyN: (n, t) => `${n} of ${t} ready`, noTheme: "No theme found.", all: "All", allTypes: "All types", catLabel: "Motion categories", typeLabel: "Type: ", copiedShort: "Copied ✓", search: "Search motion names or effects", empty: "No motions match.",
-      helpLabel: "What is this step for?", tryKw: "Try: ", original: "Original", srcPrefix: "Inspired by ", recOnly: "Recommended only", recWhy: "Recommended means: fits almost any page, has a complete reduced-motion version, and never steals attention from content. One or two per type, listed first.", pickOne: "Pick one", pickMany: "Pick any", rec: "Recommended", pickRec: "Select all recommended", loop: "Loop previews", loopWhy: "When on, every motion you can see keeps replaying so you can compare them side by side without hovering. It keeps moving, so turn it off when you are done.", recDone: "Recommended motions selected",
+      home: "Home", themeSearch: "Search elements, e.g. modal, sign-in, pricing", soonN: (n) => `${n} more coming soon`, readyN: (n) => `${n} ready`, noTheme: "No element found.", all: "All", allTypes: "All types", catLabel: "Motion categories", typeLabel: "Type: ", copiedShort: "Copied ✓", search: "Search motion names or effects", empty: "No motions match.",
+      helpLabel: "What is this step for?", tryKw: "Try: ", original: "Original", srcPrefix: "Inspired by ", recOnly: "Recommended only", recWhy: "Recommended means: fits almost any page, has a complete reduced-motion version, and never steals attention from content. One or two per type, listed first.", pickOne: "Pick one", pickMany: "Pick any", rec: "Recommended", pickRec: "Select all recommended", pickRecHint: "Not sure what to pick?", loop: "Loop previews", loopWhy: "When on, every motion you can see keeps replaying so you can compare them side by side without hovering. It keeps moving, so turn it off when you are done.", recDone: "Recommended motions selected",
       play: "Play preview", select: "Select", copied: (w) => `Copied ${w}`, prompt: "AI prompt",
       back: "Back", next: "Next", toResult: "Build my plan", restart: "Start over", restartConfirm: "Tap again to clear everything",
-      sumF: (f, m) => `<b>${f}</b> themes · <b>${m}</b> motions`, sumL: (m) => `<b>${m}</b> motions selected`,
+      sumF: (f, m) => `<b>${f}</b> elements · <b>${m}</b> motions`, sumL: (m) => `<b>${m}</b> motions selected`,
       duration: "Duration", trigger: "Trigger", whenUse: "When to use", reduced: "With reduced motion", tips: "Design notes", code: "Code",
       close: "Close", copy: "Copy", rmCss: "Reduced-motion CSS", refBy: "Inspired by: ", refNote: "implemented independently in plain HTML/CSS/JS, ready to use",
       promptTitle: "Prompt", promptSubF: "Paste into Claude or another AI and it will build the page with these features and motions.", promptSubL: "Paste into an AI to add these motions to your page.",
@@ -313,7 +313,7 @@
     const ready = ["button", "card", "tabs", "nav", "hero", "login", "quiz", "stats"].map((id) => C.themes.find((t) => t.id === id)).filter(Boolean);
     return `<div class="home">
       <h1 id="h1" tabindex="-1">${esc(l.homeH1)}</h1>
-      <p class="home__lead">${esc(l.homeLead)}</p>
+      <p class="home__lead">${esc(l.homeLead(n))}</p>
       <div class="hero-note">${l.notes.map((x, i) => `<span class="pill ${i === 0 ? "ok" : ""}">${i === 0 ? icon("accessible") : ""}${esc(x)}</span>`).join("")}</div>
       <div class="entries">
         <section class="entry-card">
@@ -344,7 +344,7 @@
     const layers = Object.keys(C.layers);
     const count = (k) => C.themes.filter((t) => k === "all" || t.layer === k);
     const tabs = `<div class="cattabs" role="tablist" aria-label="${l.funcT}">${["all", ...layers].map((k) => `
-      <button type="button" role="tab" data-lt="${k}" aria-controls="themes" tabindex="${S.lt === k ? 0 : -1}" aria-selected="${S.lt === k}">${k === "all" ? l.all : esc(tx(C.layers[k]))}<span class="count">${count(k).filter((t) => t.ready).length}/${count(k).length}</span></button>`).join("")}<span class="cattabs__bar" aria-hidden="true"></span></div>`;
+      <button type="button" role="tab" data-lt="${k}" aria-controls="themes" tabindex="${S.lt === k ? 0 : -1}" aria-selected="${S.lt === k}">${k === "all" ? l.all : esc(tx(C.layers[k]))}<span class="count">${count(k).filter((t) => t.ready).length}</span></button>`).join("")}<span class="cattabs__bar" aria-hidden="true"></span></div>`;
     const search = `<label class="search"><span class="sr-only">${l.themeSearch}</span><input type="search" id="tq" placeholder="${l.themeSearch}" value="${esc(S.tq)}"></label>`;
     return `<div class="tabrow">${tabs}${search}</div>` + `<div id="themes" role="tabpanel" aria-label="${esc(l.funcT)}">${themeResults()}</div>`;
   }
@@ -416,9 +416,9 @@
     const l = L();
     if (!S.f.length) return `<p>${l.noFunc}</p><div class="spacer"></div>`;
     const hasRec = S.f.some((sid) => groupsFor(sid).some((g) => g.rec.length));
-    return `<div class="mtools">${hasRec ? `<button type="button" class="btn sm" data-pickrec>${icon("star", "ic-s")} ${l.pickRec}</button>` : ""}${loopBtn()}</div>`
+    return `<div class="mtools">${hasRec ? `<span class="mtools__hint">${l.pickRecHint}</span><button type="button" class="btn primary sm" data-pickrec>${icon("star", "ic-s")} ${l.pickRec}</button>` : ""}${loopBtn()}</div>`
       + S.f.map((sid) => `<section class="fblock" aria-labelledby="fb-${sid}">
-        <h2 class="fblock__title" id="fb-${sid}">${esc(tx(C.sections[sid].name))}</h2>
+        <h2 class="fblock__title" id="fb-${sid}">${esc(tx((C.themes.find((t) => t.id === sid) || C.sections[sid]).name))}</h2>
         ${groupsFor(sid).map((g) => `<div class="mgroup">
           <h3 class="mgroup__title">${esc(tx(g.name))} <span class="pill ${g.pick === "one" ? "accent" : ""}">${g.pick === "one" ? l.pickOne : l.pickMany}</span></h3>
           <div class="cards">${g.items.map((e) => motionCard(e, { group: g.pick === "one" ? g.key : "", rec: g.rec.includes(e.key) })).join("")}</div></div>`).join("")}
