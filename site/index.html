@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PurrfectCat UIUX Choice</title>
+<meta name="description" content="选网站类型、选栏目、选动效，拿到提示词、需求清单和能运行的代码。每个动效都附带减弱动效方案。 Pick a site type, sections and motions — every motion ships with a reduced-motion version.">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cpath fill='%23d95f2e' d='M10 8l14 12h16l14-12v30c0 12-10 20-22 20S10 50 10 38z'/%3E%3C/svg%3E">
+<script>
+  // 先设好主题和减弱动效，避免页面闪一下
+  (function () {
+    var d = document.documentElement, t = null, r = null;
+    try { t = localStorage.getItem("pc-theme"); r = localStorage.getItem("pc-rm"); } catch (e) {}
+    d.dataset.theme = t || (matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    d.dataset.rm = (r === null ? matchMedia("(prefers-reduced-motion: reduce)").matches : r === "1") ? "1" : "0";
+  })();
+</script>
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+<a class="sr-only" href="#app">跳到主要内容 / Skip to content</a>
+<header class="top">
+  <div class="wrap">
+    <div class="navicons" id="navicons"></div>
+    <a class="brand" href="#" aria-label="PurrfectCat UIUX Choice — 首页 / Home">
+      <svg viewBox="0 0 64 64" aria-hidden="true">
+        <path fill="var(--accent)" d="M10 8l14 12h16l14-12v30c0 12-10 20-22 20S10 50 10 38z"/>
+        <circle cx="24" cy="36" r="3.2" fill="var(--surface)"/>
+        <circle cx="40" cy="36" r="3.2" fill="var(--surface)"/>
+        <path d="M29 44q3 3 6 0" stroke="var(--surface)" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+      </svg>
+      <div><b>PurrfectCat</b> <span>UIUX Choice</span><div id="tagline" class="sr-only"></div></div>
+    </a>
+    <div class="tools">
+      <button type="button" class="chip" id="btn-lang"></button>
+      <button type="button" class="chip" id="btn-theme"></button>
+      <button type="button" class="chip" id="btn-rm" aria-pressed="false"></button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="app" tabindex="-1"></main>
+
+<div class="bar" id="bar" hidden>
+  <div class="wrap">
+    <nav aria-label="步骤 / Steps"><ol class="steps" id="steps"></ol></nav>
+    <div id="barsum"></div>
+    <div class="helpbox" id="helpbox" hidden></div>
+  </div>
+</div>
+<dialog id="dlg"></dialog>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<noscript><p class="wrap">这个网站需要开启 JavaScript。This site needs JavaScript.</p></noscript>
+<script src="assets/content.js"></script>
+<script src="assets/previews.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>smoke</title>
+<!--
+  代码自检：把每个动效的 HTML/CSS/JS 放进一个独立 iframe 运行，模拟悬停、点击、输入、滚动，收集运行错误。
+  用法：把这个文件放到网站根目录（和 index.html 同级），用本地服务器打开，等 5–7 秒后在控制台看 window.__res。
+  注意：errors 里以 "harness" 开头的是这个脚本自己的问题（它假设弹窗里有 .morph-close），不是动效的错误。
+-->
+<body style="font:12px sans-serif">
+<script src="assets/content.js"></script>
+<script>
+const C = window.CONTENT;
+window.__res = { errors: [], loaded: 0, total: 0, interacted: 0 };
+addEventListener("message", (e) => { if (e.data && e.data.err) window.__res.errors.push(e.data); });
+const SEL = "button, .tilt-card, .spot-card, .cursor-area, .magnetic-wrap, .scramble, .compare__range, .scroll-fade__body, .carousel__track, .marquee__pause, .search-x input";
+for (const [id, m] of Object.entries(C.motions)) {
+  const f = document.createElement("iframe");
+  f.style.cssText = "width:320px;height:220px;border:1px solid #ccc";
+  const js = (m.js || "").replace(/<\/script>/g, "<\\/script>");
+  f.srcdoc = "<!doctype html><meta charset=utf-8><style>" + C.tokens + "\n.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}</style><style>" + (m.css || "") + "</style>" +
+    "<script>window.onerror=function(msg){parent.postMessage({id:'" + id + "',err:String(msg)},'*')};addEventListener('unhandledrejection',function(e){parent.postMessage({id:'" + id + "',err:'rejection '+e.reason},'*')})<\/script>" +
+    "<body>" + m.html + "<script>try{" + js + "\n}catch(e){parent.postMessage({id:'" + id + "',err:String(e)},'*')}<\/script>";
+  window.__res.total++;
+  f.onload = () => {
+    window.__res.loaded++;
+    try {
+      const d = f.contentDocument, w = f.contentWindow;
+      d.querySelectorAll(SEL).forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const opts = { bubbles: true, clientX: r.left + r.width / 2, clientY: r.top + r.height / 2, pointerType: "mouse" };
+        ["pointerenter", "pointermove", "mouseenter", "focus", "input"].forEach((t) => el.dispatchEvent(new w.PointerEvent(t, opts)));
+        if (el.tagName === "BUTTON") el.click();
+        if (el.classList.contains("scroll-fade__body")) { el.scrollTop = 30; el.dispatchEvent(new w.Event("scroll")); }
+        window.__res.interacted++;
+      });
+      const dlg = d.querySelector("dialog"); if (dlg && dlg.open) dlg.querySelector(".morph-close").click();
+    } catch (e) { window.__res.errors.push({ id, err: "harness " + e }); }
+  };
+  document.body.appendChild(f);
+}
+</script>
