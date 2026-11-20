@@ -1,0 +1,12 @@
+{
+  "id": "ripple",
+  "source": "ripple-button",
+  "name": { "zh": "点击涟漪", "en": "Click ripple" },
+  "summary": { "zh": "点击时从点击位置扩散一圈涟漪，键盘触发时从中心扩散", "en": "A ripple spreads from the click point; from the centre when triggered by keyboard" },
+  "kw": { "zh": ["涟漪", "水波", "波纹", "点击", "扩散"], "en": ["ripple", "ink", "wave", "click", "material"] },
+  "scope": "all",
+  "needs_js": true,
+  "ref": "Magic UI · Ripple Button（独立实现）",
+  "reduced": { "zh": "不扩散，按下时按钮变暗一点", "en": "No ripple; the button darkens slightly while pressed" },
+  "dont_use": { "zh": "很小的图标按钮；点击后立刻跳转或消失的按钮；按钮上有超出边框的角标（会被裁掉）", "en": "Tiny icon buttons; buttons that navigate or vanish instantly; buttons with badges overflowing the border (they get clipped)" }
+}

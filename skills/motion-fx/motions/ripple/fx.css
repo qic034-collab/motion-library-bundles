@@ -1,0 +1,14 @@
+/* ripple：点击处扩散一圈涟漪。涟漪是运行时插入的小圆，动画结束就移除 */
+[data-fx~="ripple"] { overflow: hidden; }
+.fx-ink {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  background: var(--fx-hl, rgb(255 255 255 / 0.38));
+  transform: scale(0); animation: fx-ink 600ms var(--fx-ease) forwards;
+}
+@keyframes fx-ink { to { transform: scale(1); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .fx-ink { display: none; }
+  [data-fx~="ripple"]:active:not(:disabled):not([aria-disabled="true"]) { filter: brightness(0.9); }
+}
+:root[data-rm="1"] .fx-ink { display: none; }
+:root[data-rm="1"] [data-fx~="ripple"]:active:not(:disabled):not([aria-disabled="true"]) { filter: brightness(0.9); }

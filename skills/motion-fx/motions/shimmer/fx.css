@@ -1,0 +1,16 @@
+/* shimmer：悬停或聚焦时，一道亮光从左扫到右。亮光颜色由运行时按按钮底色算出 */
+[data-fx~="shimmer"]::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: linear-gradient(105deg, transparent 35%, var(--fx-hl, rgb(255 255 255 / 0.4)) 50%, transparent 65%) no-repeat;
+  background-size: 300% 100%; background-position: 150% 0;
+}
+[data-fx~="shimmer"]:hover:not(:disabled):not([aria-disabled="true"])::after,
+[data-fx~="shimmer"]:focus-visible::after { animation: fx-shimmer 700ms var(--fx-ease); }
+@keyframes fx-shimmer { from { background-position: 150% 0; } to { background-position: -50% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-fx~="shimmer"]:hover::after, [data-fx~="shimmer"]:focus-visible::after { animation: none; }
+  [data-fx~="shimmer"]:hover:not(:disabled):not([aria-disabled="true"]) { filter: brightness(1.12); }
+}
+:root[data-rm="1"] [data-fx~="shimmer"]:hover::after,
+:root[data-rm="1"] [data-fx~="shimmer"]:focus-visible::after { animation: none; }
+:root[data-rm="1"] [data-fx~="shimmer"]:hover:not(:disabled):not([aria-disabled="true"]) { filter: brightness(1.12); }

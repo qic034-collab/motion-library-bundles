@@ -1,0 +1,12 @@
+{
+  "id": "shimmer",
+  "source": "shimmer-button",
+  "name": { "zh": "按钮流光", "en": "Shimmer" },
+  "summary": { "zh": "鼠标放上去或键盘聚焦时，一道亮光从按钮左边扫到右边", "en": "On hover or keyboard focus, a band of light sweeps across the button" },
+  "kw": { "zh": ["流光", "扫光", "高光", "光", "闪光"], "en": ["shimmer", "shine", "sweep", "glint", "light"] },
+  "scope": "primary",
+  "needs_js": true,
+  "ref": "Magic UI · Shimmer Button（独立实现）",
+  "reduced": { "zh": "不扫光，悬停时按钮变亮一点", "en": "No sweep; the button brightens on hover" },
+  "dont_use": { "zh": "同一屏多个按钮同时用；次要按钮；密集工具栏。只给主按钮。", "en": "Several buttons in one view, secondary buttons, dense toolbars. Primary button only." }
+}

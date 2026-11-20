@@ -1,0 +1,15 @@
+/* pulse：页面载入后，按钮外圈发出 3 次光波就停。悬停时暂停 */
+[data-fx~="pulse"] { isolation: isolate; }
+[data-fx~="pulse"]::after {
+  content: ""; position: absolute; inset: 0; z-index: -1; border-radius: inherit; pointer-events: none;
+  background: var(--fx-bg, currentColor);
+  animation: fx-pulse 2s var(--fx-ease) 3;
+}
+[data-fx~="pulse"]:hover::after { animation-play-state: paused; }
+@keyframes fx-pulse { from { transform: scale(1); opacity: 0.5; } to { transform: scale(1.3, 1.6); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  [data-fx~="pulse"]::after { animation: none; opacity: 0; }
+  [data-fx~="pulse"]:not(:focus-visible) { outline: 3px solid var(--fx-hl, rgb(0 0 0 / 0.14)); outline-offset: 2px; }
+}
+:root[data-rm="1"] [data-fx~="pulse"]::after { animation: none; opacity: 0; }
+:root[data-rm="1"] [data-fx~="pulse"]:not(:focus-visible) { outline: 3px solid var(--fx-hl, rgb(0 0 0 / 0.14)); outline-offset: 2px; }

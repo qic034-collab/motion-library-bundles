@@ -1,0 +1,12 @@
+{
+  "id": "press",
+  "source": "submit-press",
+  "name": { "zh": "按下回弹", "en": "Press bounce" },
+  "summary": { "zh": "按下去时按钮轻轻缩小到 96%，松手弹回", "en": "The button shrinks to 96% while pressed and springs back on release" },
+  "kw": { "zh": ["按下", "回弹", "缩小", "点击反馈", "按压"], "en": ["press", "bounce", "scale", "active", "tap", "click feedback"] },
+  "scope": "all",
+  "needs_js": true,
+  "ref": "",
+  "reduced": { "zh": "不缩放，按下时按钮变暗一点", "en": "No scaling; the button darkens slightly while pressed" },
+  "dont_use": { "zh": "链接样式的文字按钮（缩放会显得奇怪）", "en": "Text-link style buttons (scaling looks odd)" }
+}

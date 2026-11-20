@@ -1,0 +1,12 @@
+{
+  "id": "magnetic",
+  "source": "magnetic-button",
+  "name": { "zh": "磁吸", "en": "Magnetic" },
+  "summary": { "zh": "鼠标靠近按钮时，按钮被轻轻吸向鼠标（只对鼠标有效）", "en": "The button drifts slightly toward the cursor as it approaches (mouse only)" },
+  "kw": { "zh": ["磁吸", "磁铁", "吸附", "跟随", "靠近"], "en": ["magnetic", "magnet", "follow", "attract", "proximity"] },
+  "scope": "primary",
+  "needs_js": true,
+  "ref": "Motion Primitives · Magnetic（独立实现）",
+  "reduced": { "zh": "不位移，悬停时按钮变亮一点", "en": "No movement; the button brightens on hover" },
+  "dont_use": { "zh": "表单提交按钮；手机端；需要精确点击的小按钮；同一屏多个。只给首屏主行动按钮。", "en": "Form submit buttons, phones, small precise targets, several per view. Hero call-to-action only." }
+}

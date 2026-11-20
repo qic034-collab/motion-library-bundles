@@ -1,0 +1,12 @@
+{
+  "id": "pulse",
+  "source": "pulsating-button",
+  "name": { "zh": "按钮脉冲", "en": "Pulse" },
+  "summary": { "zh": "页面载入后按钮外圈发出 3 次光波提醒，然后停下", "en": "Three halo pulses after load to draw attention, then it stops" },
+  "kw": { "zh": ["脉冲", "光波", "提醒", "呼吸", "引导"], "en": ["pulse", "pulsating", "halo", "attention", "nudge"] },
+  "scope": "primary",
+  "needs_js": true,
+  "ref": "Magic UI · Pulsating Button（独立实现）",
+  "reduced": { "zh": "不发光波，改成按钮外一圈静态描边", "en": "No pulses; a static outline ring instead" },
+  "dont_use": { "zh": "同一屏多个；删除、取消等次要或危险按钮；无限循环。只给想让用户注意的那一个按钮。", "en": "Several per view; delete/cancel buttons; endless loops. Only the one button you want noticed." }
+}

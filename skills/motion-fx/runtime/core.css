@@ -1,0 +1,10 @@
+/* motion-fx：核心样式。所有效果都靠 [data-fx~="名字"] 触发，不依赖按钮的类名。 */
+:root {
+  /* 如果宿主项目已经有这些 token 就沿用，没有就用默认值 */
+  --fx-fast: var(--duration-fast, 150ms);
+  --fx-base: var(--duration-base, 250ms);
+  --fx-ease: var(--ease-out, cubic-bezier(0.2, 0.8, 0.2, 1));
+  --fx-spring: var(--ease-spring, cubic-bezier(0.34, 1.56, 0.64, 1));
+}
+/* 需要伪元素或子元素定位的效果：运行时发现按钮是 static 才补 relative */
+[data-fx-pos] { position: relative; }

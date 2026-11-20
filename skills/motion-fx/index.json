@@ -1,0 +1,204 @@
+{
+  "motions": [
+    {
+      "id": "magnetic",
+      "source": "magnetic-button",
+      "name": {
+        "zh": "磁吸",
+        "en": "Magnetic"
+      },
+      "summary": {
+        "zh": "鼠标靠近按钮时，按钮被轻轻吸向鼠标（只对鼠标有效）",
+        "en": "The button drifts slightly toward the cursor as it approaches (mouse only)"
+      },
+      "kw": {
+        "zh": [
+          "磁吸",
+          "磁铁",
+          "吸附",
+          "跟随",
+          "靠近"
+        ],
+        "en": [
+          "magnetic",
+          "magnet",
+          "follow",
+          "attract",
+          "proximity"
+        ]
+      },
+      "scope": "primary",
+      "needs_js": true,
+      "ref": "Motion Primitives · Magnetic（独立实现）",
+      "dont_use": {
+        "zh": "表单提交按钮；手机端；需要精确点击的小按钮；同一屏多个。只给首屏主行动按钮。",
+        "en": "Form submit buttons, phones, small precise targets, several per view. Hero call-to-action only."
+      }
+    },
+    {
+      "id": "press",
+      "source": "submit-press",
+      "name": {
+        "zh": "按下回弹",
+        "en": "Press bounce"
+      },
+      "summary": {
+        "zh": "按下去时按钮轻轻缩小到 96%，松手弹回",
+        "en": "The button shrinks to 96% while pressed and springs back on release"
+      },
+      "kw": {
+        "zh": [
+          "按下",
+          "回弹",
+          "缩小",
+          "点击反馈",
+          "按压"
+        ],
+        "en": [
+          "press",
+          "bounce",
+          "scale",
+          "active",
+          "tap",
+          "click feedback"
+        ]
+      },
+      "scope": "all",
+      "needs_js": true,
+      "ref": "",
+      "dont_use": {
+        "zh": "链接样式的文字按钮（缩放会显得奇怪）",
+        "en": "Text-link style buttons (scaling looks odd)"
+      }
+    },
+    {
+      "id": "pulse",
+      "source": "pulsating-button",
+      "name": {
+        "zh": "按钮脉冲",
+        "en": "Pulse"
+      },
+      "summary": {
+        "zh": "页面载入后按钮外圈发出 3 次光波提醒，然后停下",
+        "en": "Three halo pulses after load to draw attention, then it stops"
+      },
+      "kw": {
+        "zh": [
+          "脉冲",
+          "光波",
+          "提醒",
+          "呼吸",
+          "引导"
+        ],
+        "en": [
+          "pulse",
+          "pulsating",
+          "halo",
+          "attention",
+          "nudge"
+        ]
+      },
+      "scope": "primary",
+      "needs_js": true,
+      "ref": "Magic UI · Pulsating Button（独立实现）",
+      "dont_use": {
+        "zh": "同一屏多个；删除、取消等次要或危险按钮；无限循环。只给想让用户注意的那一个按钮。",
+        "en": "Several per view; delete/cancel buttons; endless loops. Only the one button you want noticed."
+      }
+    },
+    {
+      "id": "ripple",
+      "source": "ripple-button",
+      "name": {
+        "zh": "点击涟漪",
+        "en": "Click ripple"
+      },
+      "summary": {
+        "zh": "点击时从点击位置扩散一圈涟漪，键盘触发时从中心扩散",
+        "en": "A ripple spreads from the click point; from the centre when triggered by keyboard"
+      },
+      "kw": {
+        "zh": [
+          "涟漪",
+          "水波",
+          "波纹",
+          "点击",
+          "扩散"
+        ],
+        "en": [
+          "ripple",
+          "ink",
+          "wave",
+          "click",
+          "material"
+        ]
+      },
+      "scope": "all",
+      "needs_js": true,
+      "ref": "Magic UI · Ripple Button（独立实现）",
+      "dont_use": {
+        "zh": "很小的图标按钮；点击后立刻跳转或消失的按钮；按钮上有超出边框的角标（会被裁掉）",
+        "en": "Tiny icon buttons; buttons that navigate or vanish instantly; buttons with badges overflowing the border (they get clipped)"
+      }
+    },
+    {
+      "id": "shimmer",
+      "source": "shimmer-button",
+      "name": {
+        "zh": "按钮流光",
+        "en": "Shimmer"
+      },
+      "summary": {
+        "zh": "鼠标放上去或键盘聚焦时，一道亮光从按钮左边扫到右边",
+        "en": "On hover or keyboard focus, a band of light sweeps across the button"
+      },
+      "kw": {
+        "zh": [
+          "流光",
+          "扫光",
+          "高光",
+          "光",
+          "闪光"
+        ],
+        "en": [
+          "shimmer",
+          "shine",
+          "sweep",
+          "glint",
+          "light"
+        ]
+      },
+      "scope": "primary",
+      "needs_js": true,
+      "ref": "Magic UI · Shimmer Button（独立实现）",
+      "dont_use": {
+        "zh": "同一屏多个按钮同时用；次要按钮；密集工具栏。只给主按钮。",
+        "en": "Several buttons in one view, secondary buttons, dense toolbars. Primary button only."
+      }
+    }
+  ],
+  "bundles": [
+    {
+      "id": "friendly-buttons",
+      "name": {
+        "zh": "轻快按钮",
+        "en": "Friendly buttons"
+      },
+      "summary": {
+        "zh": "所有按钮都有按下回弹和点击涟漪；只有主按钮有悬停流光。适合学习、工具、后台类产品。",
+        "en": "Every button gets press bounce and click ripple; only primary buttons get the hover shimmer. Good for learning apps, tools and dashboards."
+      }
+    },
+    {
+      "id": "showcase-cta",
+      "name": {
+        "zh": "展示型行动按钮",
+        "en": "Showcase CTA"
+      },
+      "summary": {
+        "zh": "所有按钮只有按下回弹；首屏主行动按钮额外有磁吸和流光。适合营销页、作品集。",
+        "en": "Every button gets press bounce only; the hero call-to-action also gets magnetic pull and shimmer. For marketing pages and portfolios."
+      }
+    }
+  ]
+}

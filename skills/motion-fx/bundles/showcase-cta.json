@@ -1,0 +1,12 @@
+{
+  "id": "showcase-cta",
+  "name": { "zh": "展示型行动按钮", "en": "Showcase CTA" },
+  "summary": {
+    "zh": "所有按钮只有按下回弹；首屏主行动按钮额外有磁吸和流光。适合营销页、作品集。",
+    "en": "Every button gets press bounce only; the hero call-to-action also gets magnetic pull and shimmer. For marketing pages and portfolios."
+  },
+  "rules": [
+    { "select": "button, [role=button], a[class*=btn], input[type=submit], input[type=button]", "fx": ["press"] },
+    { "select": ".hero .btn-primary, .hero [class*=btn-primary], .hero button[type=submit], [data-cta]", "fx": ["magnetic", "shimmer"] }
+  ]
+}

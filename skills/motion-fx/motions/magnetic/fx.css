@@ -1,0 +1,7 @@
+/* magnetic：鼠标靠近时按钮被轻轻吸过去。位移由运行时写到独立的 translate 属性上 */
+@media (prefers-reduced-motion: reduce) {
+  [data-fx~="magnetic"] { translate: none !important; }
+  [data-fx~="magnetic"]:hover:not(:disabled):not([aria-disabled="true"]) { filter: brightness(1.08); }
+}
+:root[data-rm="1"] [data-fx~="magnetic"] { translate: none !important; }
+:root[data-rm="1"] [data-fx~="magnetic"]:hover:not(:disabled):not([aria-disabled="true"]) { filter: brightness(1.08); }

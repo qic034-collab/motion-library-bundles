@@ -1,0 +1,12 @@
+{
+  "id": "friendly-buttons",
+  "name": { "zh": "轻快按钮", "en": "Friendly buttons" },
+  "summary": {
+    "zh": "所有按钮都有按下回弹和点击涟漪；只有主按钮有悬停流光。适合学习、工具、后台类产品。",
+    "en": "Every button gets press bounce and click ripple; only primary buttons get the hover shimmer. Good for learning apps, tools and dashboards."
+  },
+  "rules": [
+    { "select": "button, [role=button], a[class*=btn], input[type=submit], input[type=button]", "fx": ["press", "ripple"] },
+    { "select": "button[type=submit], .btn-primary, [class*=btn-primary], [class*=primary][class*=btn], [data-primary]", "fx": ["shimmer"] }
+  ]
+}

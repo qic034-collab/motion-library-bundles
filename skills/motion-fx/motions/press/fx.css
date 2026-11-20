@@ -1,0 +1,6 @@
+/* press：按下回弹。用独立的 scale 属性，不会和别的 transform 冲突 */
+[data-fx~="press"]:active:not(:disabled):not([aria-disabled="true"]) { scale: 0.96; }
+@media (prefers-reduced-motion: reduce) {
+  [data-fx~="press"]:active:not(:disabled):not([aria-disabled="true"]) { scale: 1; filter: brightness(0.9); }
+}
+:root[data-rm="1"] [data-fx~="press"]:active:not(:disabled):not([aria-disabled="true"]) { scale: 1; filter: brightness(0.9); }
