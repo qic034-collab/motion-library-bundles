@@ -207,3 +207,15 @@ P["shimmer-button"] = {
 ## 7. Skill：motion-fx（按钮动效一步套用）
 
 位置：`skills/motion-fx/`。把动效库里的按钮动效做成 skill，用户说「所有按钮都用流光」就按选择器一次套到整个项目，不用一个个改。用法、规则和限制见 `skills/motion-fx/SKILL.md`。目前有 5 个按钮动效（按下回弹、点击涟漪、流光、磁吸、脉冲）和 2 个组合。
+
+---
+
+## 8. 云端：登录、收藏、我的代码、个人主页
+
+用 Supabase 做账号和数据库。设置步骤和安全说明见 `supabase/README.md`；表结构和权限在 `supabase/schema.sql`。
+
+- `site/assets/config.js`：填 Supabase 的 URL 和 anon 密钥；**留空时整套云端功能不显示**，网站和以前一样。
+- `site/assets/cloud.js`：数据层（唯一碰 Supabase 的地方，换后端只改这里）。
+- `site/assets/profile.js`：登录弹窗、收藏爱心、添加代码、个人主页（`#u=名字`）。
+- `app.js` 只做了接线：`window.PC` 暴露小工具，`readHash` / `render` 认识 `profile` 视图，动效卡片和详情里放了爱心 / 「存为我的代码」。
+- `tools/cloud-test.html` 加载 `tools/mock-cloud.js` 的假后端，本地测界面用（`python3 -m http.server`，打开 `/tools/cloud-test.html`）。

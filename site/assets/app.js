@@ -8,6 +8,7 @@
   const root = document.documentElement;
   const app = $("#app");
   const CATS = ["feedback", "data", "decor", "nav"];
+  const REPO_URL = "https://github.com/qic034-collab/motion-library-bundles";
 
   // ---------- 界面文字 ----------
   const UI = {
@@ -39,7 +40,7 @@
       sumF: (f, m) => `<b>${f}</b> 个元素 · <b>${m}</b> 个动效`, sumL: (m) => `已选 <b>${m}</b> 个动效`,
       duration: "时长", trigger: "触发", whenUse: "什么时候用", reduced: "减弱动效时", tips: "设计要点", code: "代码",
       close: "关闭", copy: "复制", rmCss: "减弱动效 CSS", refBy: "效果参考：", refNote: "用原生 HTML/CSS/JS 独立实现，可直接使用",
-      promptTitle: "提示词", promptSubF: "复制给 Claude 或其他 AI，它会按这些功能和动效帮你写页面。", promptSubL: "复制给 AI，让它把这些动效加进你的页面。",
+      promptTitle: "提示词", ctxLabel: "你的网站是做什么的？（选填）", ctxPh: "例如：Khan Academy 的代数练习页，给高中生用，希望他们做完一题还想继续做下一题", ctxHint: "写了会放进提示词开头，AI 更知道该做成什么样。", promptSubF: "复制给 Claude 或其他 AI，它会按这些功能和动效帮你写页面。", promptSubL: "复制给 AI，让它把这些动效加进你的页面。",
       codeTitle: "代码", codeSubF: "一个 HTML 文件，双击就能打开。有完整代码的功能和动效已经接好；还没写好代码的功能留了占位。示例内容目前是中文。",
       codeSubL: "一个 Markdown 文件，包含设计 token、每个动效的 HTML / CSS / JS 和减弱动效代码。",
       download: "下载 HTML", downloadMd: "下载代码（.md）", showCode: "查看代码", hideCode: "收起代码",
@@ -54,7 +55,7 @@
         "动画只动 transform 和 opacity，不要动 width、top、margin。",
         "保留无障碍：语义化 HTML、键盘能操作、聚焦状态可见；状态要有文字，不能只靠颜色或动画。",
         "自动播放或循环超过 5 秒的内容，要有暂停按钮。",
-        "如果你装了 PurrfectCat-UIUX_choice skill，请优先使用 skill 里的代码和规则。",
+        "如果你装了 PurrfectCat-UIUX_choice skill（Claude 可以安装的能力包），请优先使用 skill 里的代码和规则；没装的话忽略这一条。",
       ],
     },
     en: {
@@ -85,7 +86,7 @@
       sumF: (f, m) => `<b>${f}</b> elements · <b>${m}</b> motions`, sumL: (m) => `<b>${m}</b> motions selected`,
       duration: "Duration", trigger: "Trigger", whenUse: "When to use", reduced: "With reduced motion", tips: "Design notes", code: "Code",
       close: "Close", copy: "Copy", rmCss: "Reduced-motion CSS", refBy: "Inspired by: ", refNote: "implemented independently in plain HTML/CSS/JS, ready to use",
-      promptTitle: "Prompt", promptSubF: "Paste into Claude or another AI and it will build the page with these features and motions.", promptSubL: "Paste into an AI to add these motions to your page.",
+      promptTitle: "Prompt", ctxLabel: "What is your site for? (optional)", ctxPh: "e.g. An algebra practice page on Khan Academy for high-school students; we want them to keep going after each question", ctxHint: "It goes at the top of the prompt so the AI knows what to build.", promptSubF: "Paste into Claude or another AI and it will build the page with these features and motions.", promptSubL: "Paste into an AI to add these motions to your page.",
       codeTitle: "Code", codeSubF: "A single HTML file you can double-click. Features with full code and their motions are wired up; features without code yet have placeholders. Sample content is currently in Chinese.",
       codeSubL: "A Markdown file with the design tokens and each motion's HTML / CSS / JS and reduced-motion code.",
       download: "Download HTML", downloadMd: "Download code (.md)", showCode: "Show code", hideCode: "Hide code",
@@ -100,7 +101,7 @@
         "Animate only transform and opacity, never width, top or margin.",
         "Keep it accessible: semantic HTML, keyboard operable, visible focus; state must be shown in text, not only color or motion.",
         "Anything that autoplays or loops for more than 5 seconds needs a pause button.",
-        "If you have the PurrfectCat-UIUX_choice skill installed, prefer its code and rules.",
+        "If you have the PurrfectCat-UIUX_choice skill installed (an add-on package for Claude), prefer its code and rules; if not, ignore this line.",
       ],
     },
   };
@@ -132,16 +133,18 @@
   };
   const sysDark = matchMedia("(prefers-color-scheme: dark)");
   const sysRM = matchMedia("(prefers-reduced-motion: reduce)");
-  const S = { view: "home", step: 1, f: [], m: [], ft: "all", cat: "all", ty: "all", q: "", lt: "all", tq: "", lang: "zh" };
+  const S = { view: "home", step: 1, f: [], m: [], ft: "all", cat: "all", ty: "all", q: "", lt: "all", tq: "", lang: "zh", ctx: "", u: "" };
   const prefs = { theme: store.get("pc-theme") || "", rm: store.get("pc-rm"), loop: store.get("pc-loop") === "1" };
 
   function readHash() {
     const p = new URLSearchParams(location.hash.slice(1));
-    S.view = ["func", "lib"].includes(p.get("v")) ? p.get("v") : "home";
+    S.u = (p.get("u") || "").toLowerCase().replace(/[^a-z0-9_-]/g, "").slice(0, 20); // 个人主页 #u=名字
+    S.view = S.u ? "profile" : ["func", "lib"].includes(p.get("v")) ? p.get("v") : "home";
     S.f = (p.get("f") || "").split(",").filter((id) => C.sections[id]);
     S.m = (p.get("m") || "").split(",").filter(Boolean);
     S.ft = C.types.some((t) => t.id === p.get("ft")) ? p.get("ft") : "all";
     S.step = Math.min(S.view === "lib" ? 1 : 3, Math.max(1, Number(p.get("step")) || 1));
+    S.ctx = (p.get("d") || "").slice(0, 300);
     if (S.view === "func" && !S.f.length) S.step = 1;
     const lang = p.get("lang") || store.get("pc-lang") || (navigator.language.startsWith("zh") ? "zh" : "en");
     S.lang = lang === "en" ? "en" : "zh";
@@ -149,11 +152,13 @@
   }
   function writeHash() {
     const p = new URLSearchParams();
-    if (S.view !== "home") p.set("v", S.view);
+    if (S.view === "profile") p.set("u", S.u);
+    else if (S.view !== "home") p.set("v", S.view);
     if (S.view === "func" && S.f.length) p.set("f", S.f.join(","));
     if (S.view !== "home" && S.m.length) p.set("m", S.m.join(","));
     if (S.view === "func" && S.ft !== "all") p.set("ft", S.ft);
     if (S.step > 1) p.set("step", S.step);
+    if (S.view !== "home" && S.ctx.trim()) p.set("d", S.ctx.trim()); // 分享链接也带上网站描述
     p.set("lang", S.lang);
     history.replaceState(null, "", "#" + p.toString());
   }
@@ -263,12 +268,12 @@
     writeHash();
     if (typeof tipBtn !== "undefined" && tipBtn) toggleTip(null, false);
     const l = L();
-    const F = S.view === "func", H = S.view === "home";
+    const F = S.view === "func", H = S.view === "home", PF = S.view === "profile";
     app.dataset.view = S.view;
     const navb = (cur, attr, label, ic) => `<button type="button" class="navbtn" ${attr} ${cur ? 'aria-current="page"' : ""} aria-label="${esc(label)}" title="${esc(label)}">${icon(ic, "ic-s")}</button>`;
     $("#navicons").innerHTML = navb(H, "data-home", l.home, "home") + navb(S.view === "lib", 'data-golib="all"', l.libT, "search") + navb(F, 'data-gofunc=""', l.funcT, "shape");
     const steps = F ? l.fSteps : l.lSteps, subs = F ? l.fSubs : l.lSubs;
-    $("#steps").innerHTML = H ? "" : steps.map((name, i) => {
+    $("#steps").innerHTML = H || PF ? "" : steps.map((name, i) => {
       const n = i + 1, can = !F || n === 1 || S.f.length;
       const cur = n === S.step;
       const helpB = cur ? `<button type="button" class="helpbtn" data-help aria-expanded="false" aria-controls="helpbox" aria-label="${esc(l.helpLabel)}" title="${esc(l.helpLabel)}">${icon("help", "ic-s")}</button>` : "";
@@ -277,6 +282,9 @@
     }).join("");
     if (H) {
       app.innerHTML = viewHome();
+    } else if (PF) {
+      $("#helpbox").hidden = true;
+      app.innerHTML = window.PCCloud ? PCCloud.view() : "";
     } else {
       const h1 = F ? l.fH1 : l.lH1, lead = F ? l.fLead : l.lLead;
       const head = `<div class="head"><h1 id="h1" tabindex="-1" class="sr-only">${esc(h1[S.step - 1])}</h1></div>`;
@@ -290,6 +298,7 @@
     syncBarH();
     bindPreviews(app);
     placeCatBar();
+    if (window.PCCloud) PCCloud.afterRender(); // 账号按钮、个人主页
   }
   // 四大类的下划线滑块：从上一个位置滑到新位置
   function placeCatBar() {
@@ -314,7 +323,9 @@
     return `<div class="home">
       <h1 id="h1" tabindex="-1">${esc(l.homeH1)}</h1>
       <p class="home__lead">${esc(l.homeLead(n))}</p>
-      <div class="hero-note">${l.notes.map((x, i) => `<span class="pill ${i === 0 ? "ok" : ""}">${i === 0 ? icon("accessible") : ""}${esc(x)}</span>`).join("")}</div>
+      <div class="hero-note">${l.notes.map((x, i) => i === 2
+        ? `<a class="pill pill-link" href="${REPO_URL}" target="_blank" rel="noopener">${esc(x)} ${icon("external", "ic-s")}</a>`
+        : `<span class="pill ${i === 0 ? "ok" : ""}">${i === 0 ? icon("accessible") : ""}${esc(x)}</span>`).join("")}</div>
       <div class="entries">
         <section class="entry-card">
           <div class="entry-card__icon">${icon("search")}</div>
@@ -398,6 +409,7 @@
     return `<div class="card pick mcard ${on ? "is-on" : ""}" data-pv="${e.id}" data-cat="${m.category}">
       <div class="stage" data-stage="${e.id}">${PV[e.id].html()}
         <button type="button" class="playbtn" data-play="${e.id}" aria-label="${l.play}：${esc(tx(m.name))}">${icon("play", "ic-s")}</button></div>
+      ${window.PCCloud ? PCCloud.saveBtn(e.id) : ""}
       <label class="pickbox" title="${l.select}"><input type="checkbox" value="${e.key}" data-role="motion" ${on ? "checked" : ""} aria-label="${l.select} ${esc(tx(m.name))}"${opts.group ? ` data-group="${opts.group}"` : ""}>
       <span class="check-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></svg></span></label>
       <div class="mbody"><button type="button" class="mname" data-detail="${e.id}">${esc(tx(m.name))}</button>${opts.rec ? `<span class="pill ok rec">${icon("star", "ic-s")} ${l.rec}</span>` : ""}</div>
@@ -470,7 +482,7 @@
   addEventListener("resize", () => syncBarH());
   function renderBar() {
     const l = L(), bar = $("#bar");
-    if (S.view === "home" || S.view === "lib") { bar.hidden = true; return; }
+    if (S.view === "home" || S.view === "lib" || S.view === "profile") { bar.hidden = true; return; }
     bar.hidden = false;
     const F = S.view === "func", last = F ? 3 : 2;
     const n = selected().length;
@@ -531,6 +543,7 @@
       <div class="dlg-body">
         <div class="stage" data-stage="${id}">${PV[id].html()}</div>
         <div class="copies dlg-copies">${[["prompt", l.prompt], ["html", "HTML", m.html], ["css", "CSS", m.css], ["js", "JS", m.js]].filter((x) => x.length === 2 || x[2]).map(([k, label]) => `<button type="button" class="cbtn" data-cp="${k}" data-id="${id}">${label}</button>`).join("")}</div>
+        ${window.PCCloud ? PCCloud.detailBtns(id) : ""}
         ${m.ref ? `<p class="refline">${l.refBy}${esc(m.ref)} · ${l.refNote}</p>` : ""}
         <h3>${l.whenUse}</h3>${md(tx(m.use))}
         <h3 class="with-icon">${icon("accessible")}${l.reduced}</h3>${md(tx(m.reduced))}
@@ -589,10 +602,11 @@
     out.push(st
       ? (zh ? `请帮我做一个「${st.name.zh}」网站的页面（${st.example.zh}）。核心目标：${st.summary.zh}。` : `Please build a page for a ${st.name.en} site (${st.example.en}). Core goal: ${st.summary.en}.`)
       : (zh ? "请帮我做一个网页，包含下面这些功能和动效。" : "Please build a web page with the following features and motions."));
+    if (S.ctx.trim()) out.push("", (zh ? "关于这个网站：" : "About this site: ") + S.ctx.trim());
     out.push("", zh ? "## 功能" : "## Features");
     S.f.forEach((sid, i) => {
       const s = C.sections[sid];
-      out.push(`${i + 1}. ${tx(s.name)} — ${tx(s.summary)}`);
+      out.push(`${i + 1}. ${tx((C.themes.find((t) => t.id === sid) || s).name)} — ${tx(s.summary)}`);
       if (s.built) out.push(`   ${zh ? "结构" : "Structure"}：${tx(s.structure)}`);
       else Object.entries(s.req[S.lang]).forEach(([k, v]) => out.push(`   - ${k}：${v}`));
     });
@@ -616,6 +630,7 @@
   function buildLibPrompt() {
     const zh = S.lang === "zh", out = [];
     out.push(zh ? "请帮我在网页里加入下面这些动效。先看我现有的页面结构，把每个动效挂到合适的元素上。" : "Please add the following motions to my web page. Look at my existing markup first and attach each motion to the right element.");
+    if (S.ctx.trim()) out.push("", (zh ? "关于这个网站：" : "About this site: ") + S.ctx.trim());
     out.push("", zh ? "## 动效" : "## Motions");
     selected().forEach((e) => {
       if (e.kind !== "own") { out.push(`- ${C.libs[e.lib].name} · ${e.name}（${C.libs[e.lib].url}）`); return; }
@@ -797,6 +812,9 @@ ${scripts}
     const l = L(), F = S.view === "func";
     return `<div class="result">
       <section class="panel"><h2>${l.promptTitle}</h2><p>${F ? l.promptSubF : l.promptSubL}</p>
+        <div class="ctx"><label for="ctx">${l.ctxLabel}</label>
+          <textarea id="ctx" rows="2" maxlength="300" placeholder="${esc(l.ctxPh)}" aria-describedby="ctx-hint">${esc(S.ctx)}</textarea>
+          <small id="ctx-hint">${l.ctxHint}</small></div>
         <pre tabindex="0" id="out-prompt">${esc(F ? buildPrompt() : buildLibPrompt())}</pre>
         <div class="row"><button type="button" class="btn primary sm" data-copy="#out-prompt">${l.copy}</button>
         <button type="button" class="btn sm" data-share>${l.share}</button></div></section>
@@ -1042,6 +1060,13 @@ ${scripts}
 
   // 搜索：只刷新结果区，输入框不丢焦点
   document.addEventListener("input", (e) => {
+    if (e.target.id === "ctx") {
+      S.ctx = e.target.value;
+      const pre = $("#out-prompt");
+      if (pre) pre.textContent = S.view === "func" ? buildPrompt() : buildLibPrompt();
+      writeHash();
+      return;
+    }
     if (e.target.id === "tq") { S.tq = e.target.value; $("#themes").innerHTML = themeResults(); return; }
     if (e.target.id !== "bq") return;
     S.q = e.target.value;
@@ -1055,6 +1080,8 @@ ${scripts}
   addEventListener("hashchange", () => { readHash(); render(); });
   addEventListener("popstate", () => { readHash(); render(); });
 
+  // 给 profile.js（登录、收藏、个人主页）用的小工具
+  window.PC = { S, C, PV, L, tx, esc, icon, ICONS, toast, copy, go, bindPreviews, root };
   readHash();
   render();
   window.__pc = { S, buildHtml, buildPrompt, buildLibPrompt, buildMarkdown, render, allPool, motionPrompt };

@@ -1767,3 +1767,96 @@ html { scroll-padding-top: 76px; scroll-padding-bottom: calc(var(--bar-h, 72px) 
 /* 「全部选推荐」前的引导文字 */
 .mtools__hint { color: var(--muted); font-size: 0.85rem; }
 .mtools .btn.primary.sm svg.ic-s { width: 14px; height: 14px; }
+
+/* 第三步：「你的网站是做什么的？」 */
+.ctx { display: grid; gap: 6px; margin: 4px 0 14px; }
+.ctx label { font-weight: 600; font-size: 0.92rem; }
+.ctx textarea { width: 100%; box-sizing: border-box; resize: vertical; min-height: 64px; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: var(--r-sm); background: var(--bg); color: var(--ink); font: inherit; line-height: 1.5; }
+.ctx textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.ctx small { color: var(--muted); font-size: 0.8rem; }
+
+/* 首页「免费开源」链到 GitHub */
+.pill-link { text-decoration: none; color: inherit; display: inline-flex; align-items: center; gap: 4px; }
+.pill-link:hover { color: var(--accent-ink); text-decoration: underline; text-underline-offset: 3px; }
+.pill-link svg.ic-s { width: 12px; height: 12px; }
+
+/* ===== 账号、收藏、个人主页 ===== */
+#btn-acct[hidden] { display: none; }
+#btn-acct .lbl { max-width: 9em; overflow: hidden; text-overflow: ellipsis; }
+
+/* 卡片右上角的收藏爱心 */
+.savebtn { position: absolute; top: 8px; right: 8px; z-index: 3; width: 32px; height: 32px; display: grid; place-items: center; padding: 0; border: 1px solid var(--border); border-radius: 50%; background: var(--surface); color: var(--muted); cursor: pointer;
+  transition: color var(--fast), border-color var(--fast), transform var(--fast) var(--ease); }
+.savebtn svg { width: 16px; height: 16px; }
+.savebtn:hover, .savebtn:focus-visible { color: var(--accent); border-color: var(--accent); }
+.savebtn:active { transform: scale(0.9); }
+.savebtn[aria-pressed="true"] { color: var(--accent); border-color: var(--accent); background: var(--accent-soft); }
+.savebtn[aria-pressed="true"] svg { fill: currentColor; }
+[data-rm="1"] .savebtn:active { transform: none; }
+.dlg-save { display: flex; gap: 8px; align-items: center; margin-top: 12px; }
+.dlg-save .savebtn { position: static; width: 34px; height: 34px; }
+
+/* 主页 */
+.prof { padding: 8px 0 24px; }
+.prof__state { padding: 40px 0; color: var(--muted); text-align: center; }
+.prof__state.bad { color: var(--bad); }
+.prof__head { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 20px; padding: 20px 0 18px; }
+.avatar { width: 72px; height: 72px; flex: none; display: grid; place-items: center; border-radius: 50%; background: var(--accent-soft); color: var(--accent-ink); font: 700 1.9rem var(--font); }
+.prof__id { flex: 1 1 220px; min-width: 0; }
+.prof__id h1 { margin: 0; font-size: 1.6rem; line-height: 1.2; overflow-wrap: anywhere; }
+.prof__handle { margin: 2px 0 0; color: var(--muted); }
+.prof__bio { margin: 8px 0 0; }
+.prof__stat { margin: 8px 0 0; color: var(--muted); font-size: 0.85rem; }
+.prof__acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.btn.quiet { border-color: transparent; background: transparent; color: var(--muted); }
+.prof__filters { margin: 4px 0 16px; display: flex; flex-wrap: wrap; gap: 8px; }
+.prof__filters .count { margin-left: 4px; color: var(--muted); font-size: 0.75rem; }
+.prof__cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+.prof__empty { padding: 36px 16px; text-align: center; color: var(--muted); border: 1.5px dashed var(--border); border-radius: var(--r-lg); }
+.prof__empty .btn { margin-top: 8px; }
+
+/* 卡片下方的操作条（只有主人看得到） */
+.pcard { padding: 0; overflow: hidden; }
+.pcard .mbody { padding-right: 14px; }
+.pcard .msum { padding: 0 14px; }
+.pcard__bar { display: flex; flex-wrap: wrap; gap: 6px; padding: 10px 14px 12px; border-top: 1px solid var(--border); }
+.chip.sm { height: 28px; padding: 0 10px; font-size: 0.78rem; }
+.chip.sm svg { width: 14px; height: 14px; }
+.chip.like[aria-pressed="true"] { color: var(--accent); }
+.chip.like[aria-pressed="true"] svg { fill: currentColor; }
+.chip.vis { margin-right: auto; }
+.chip.del:hover, .chip.del.armed { border-color: var(--bad); color: var(--bad); }
+.pcard .stage .sandbox { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: transparent; }
+.runbtn { display: inline-flex; align-items: center; gap: 6px; height: 34px; padding: 0 14px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--ink); font: 600 0.82rem var(--font); cursor: pointer; }
+.runbtn:hover, .runbtn:focus-visible { border-color: var(--accent); color: var(--accent-ink); }
+.pill.vis.public { background: var(--ok-soft); color: var(--ok); }
+
+/* 表单（登录、起名字、添加代码） */
+.form { display: grid; gap: 14px; margin-top: 12px; }
+.field { display: grid; gap: 6px; min-width: 0; border: 0; padding: 0; margin: 0; }
+.field > span, .field > legend { font-weight: 600; font-size: 0.88rem; padding: 0; }
+.field small { color: var(--muted); font-size: 0.8rem; }
+.field input:not([type="radio"]), .field textarea { width: 100%; box-sizing: border-box; padding: 10px 12px; border: 1.5px solid var(--border); border-radius: 12px; background: var(--surface); color: var(--ink); font: inherit; }
+.field input:focus-visible, .field textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 1px; border-color: var(--accent); }
+.field input[readonly] { background: var(--surface-2); color: var(--muted); }
+.field textarea.code { font: 0.82rem/1.5 ui-monospace, "SF Mono", Menlo, Consolas, monospace; resize: vertical; tab-size: 2; }
+.radio { display: flex; gap: 8px; align-items: flex-start; font-size: 0.9rem; }
+.radio input { margin-top: 3px; }
+.pubwarn { color: var(--bad); }
+.hint { display: flex; gap: 6px; align-items: center; margin: 0; color: var(--muted); font-size: 0.8rem; }
+.hint svg { flex: none; }
+.form .row { display: flex; gap: 8px; flex-wrap: wrap; }
+.form__msg { margin: 0; min-height: 1.3em; color: var(--muted); font-size: 0.88rem; }
+.form__msg.bad { color: var(--bad); }
+.tryhost { position: relative; height: 200px; border: 1px solid var(--border); border-radius: var(--r-md, 12px); }
+.tryhost[hidden] { display: none; }
+.tryhost .sandbox { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+/* 窄屏：多了账号按钮，顶栏放不下时先让出 logo（左边的「首页」图标本来就能回首页） */
+@media (max-width: 440px) {
+  .top .wrap { gap: 6px; }
+  .brand { flex: 0 1 auto; min-width: 0; margin-right: auto; }
+  .brand svg { display: none; }
+  .tools { gap: 4px; }
+  .tools .chip { padding: 0 10px; }
+}
